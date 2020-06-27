@@ -1,7 +1,7 @@
 package com.gitTraining
 
 fun computeFibbonaciNumber(position: Int, recursion: Boolean = false): Int {
-    if (recursion) return recursiveFibbonachi(1, 1, position - 2)
+    if (recursion) return recursiveFibbonachi(position)
 
     if (position == 0) return 0
     if (position < 0) {
@@ -24,10 +24,12 @@ fun computeFibbonaciNumber(position: Int, recursion: Boolean = false): Int {
     return j
 }
 
-fun recursiveFibbonachi(previous: Int, current: Int, stepsLeft: Int): Int {
-    if (stepsLeft < 0) return 1
-    return when (stepsLeft) {
-        0 -> current
-        else -> recursiveFibbonachi(current, previous + current, stepsLeft - 1)
+fun recursiveFibbonachi(initialPosition: Int, left: Int = 0, right: Int = 1, position: Int = initialPosition): Int {
+    if (initialPosition == 0) return 0
+    if (position == 0) return left
+    if (initialPosition > 0) {
+        return recursiveFibbonachi(initialPosition, right, left + right, position - 1)
+    } else {
+        return recursiveFibbonachi(initialPosition, right - left, left, position + 1)
     }
 }
